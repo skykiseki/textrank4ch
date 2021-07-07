@@ -5,7 +5,7 @@
 2. [TextRank Bringing Order into Texts](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf)
 
 
-                
+
     原来的TextRank4ZH，都近5年莫得更新了！~~
     个人感觉这个包还不错，当前项目里也在使用，只不过这个包有不少体验不好的地方
 

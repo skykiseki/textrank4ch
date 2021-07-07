@@ -1,6 +1,6 @@
 from segment import WordSegment
 import os
-from TextRank4Keyword import TextRank4Keywords
+from textrank4ch.TextRank4Keyword import TextRank4Keywords
 
 if __name__ == '__main__':
     work_path = os.getcwd()

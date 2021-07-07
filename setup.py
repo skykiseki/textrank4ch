@@ -12,7 +12,7 @@ textrank4ch
 "基于textrank的关键字摘取与摘要句摘取", 
 
 
-具体textrank的知识参考, 我个人觉得还不错
+具体textrank的知识参考, 我个人觉得还不错:     
 [《PageRank 笔记》](https://clvsit.blog.csdn.net/article/details/90322422)
 [《textrank提取关键词与关键句》](https://blog.csdn.net/weixin_40746796/article/details/89963268)
 
