@@ -41,7 +41,8 @@ class TextRank4Sentence(object):
         self.path_stop_words = path_stop_words
         self.is_lower = is_lower
 
-
+        # 切分句子
+        
 
 
 
