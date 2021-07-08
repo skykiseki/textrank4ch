@@ -33,7 +33,7 @@ corpus =  "近日，云南省德宏州瑞丽市出现本土新冠肺炎疫情，
 
 # 对输入进行分析、得到全量的关键词相关信息, 如权重(PR)、词性
 t4kw = TextRank4Keywords()
-t4kw.analyze(text=ss, path_stop_words=path_stop_words)
+t4kw.analyze(text=corpus)
     
 # 再基于上述analyze的结果进行按需提取需要的关键字
 print(t4kw.get_keywords(3))
