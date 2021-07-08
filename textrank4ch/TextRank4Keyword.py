@@ -20,8 +20,9 @@ class TextRank4Keywords(object):
         self.text = None
         self.is_lower = None
         self.keywords = None
+        self.allow_pos = None
 
-    def analyze(self, text:str, path_stop_words:str=None, is_lower:bool=True):
+    def analyze(self, text, path_stop_words=None, allow_pos=utils.allow_pos, is_lower=True):
         """
         对文本进行分析, 找出所有的关键词候选列表
 
@@ -39,6 +40,7 @@ class TextRank4Keywords(object):
         self.path_stop_words = path_stop_words
         self.text = text
         self.is_lower = is_lower
+        self.allow_pos = allow_pos
 
         if self.is_lower:
             self.text = self.text.strip().replace(" ", "").lower()
@@ -48,7 +50,7 @@ class TextRank4Keywords(object):
 
         self.keywords = jieba.analyse.textrank(sentence=self.text,
                                                topK=None,
-                                               allowPOS=utils.allow_pos,
+                                               allowPOS=self.allow_pos,
                                                withWeight=True,
                                                withFlag=True)
 
