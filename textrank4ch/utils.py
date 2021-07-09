@@ -49,9 +49,9 @@ def get_similarity(words1, words2):
     """
 
     if len(words1) == 0 or len(words2) == 0:
-        return 0
-
-    sim_value = float(len(set(words1).intersection(set(words2))) / (np.log(len(words1)) + np.log(len(words2))))
+        sim_value = 0
+    else:
+        sim_value = float(len(set(words1).intersection(set(words2))) / (np.log(len(words1)) + np.log(len(words2))))
 
     return sim_value
 
