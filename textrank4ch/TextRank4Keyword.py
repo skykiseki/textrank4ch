@@ -57,7 +57,7 @@ class TextRank4Keywords(object):
                                                withWeight=True,
                                                withFlag=True)
 
-    def get_keywords(self, top_k=6, word_min_len=1, with_weight=True, with_flag=False):
+    def get_key_words(self, top_k=6, word_min_len=1, with_weight=True, with_flag=False):
         """
         获取需要的关键词
 

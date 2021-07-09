@@ -56,8 +56,11 @@ def get_similarity(words1, words2):
     return sim_value
 
 
-def get_key_sentences(sentences, words, sim_func=get_similarity):
-    """
+def sort_sentences(sentences, words,
+                   sim_func=get_similarity,
+                   pagerank_config=None,
+                   pr_error_handle='iterator'):
+    f"""
     基于TextRank方法对句子以及分词结果进行提取摘要
 
     Parameters:
@@ -66,13 +69,29 @@ def get_key_sentences(sentences, words, sim_func=get_similarity):
 
     words: list, 切分后的结果词列表
 
+    pagerank_config: dict, networkx.pagerank的参数字典
+
+    pr_error_handle: str, pagerank不收敛的时候的处理策略, iterator增加迭代轮次（兜底）, tolerance增加迭代轮次前后的差值阈值
+
     Returns:
     -------
-
+    list_res: list, [{'sentence': sentence, 'weight': pagerank}]
     """
+    list_res = []
+
+    # 默认的PR收敛时的参数
+    pr_alpha = 1
+    pr_max_iter = 200
+    pr_tol = 1e-6
+
+    if pagerank_config is None:
+        pagerank_config = {'alpha': pr_alpha,
+                           'max_iter': pr_max_iter,
+                           'tol': pr_tol}
+
     len_sentences = len(sentences)
 
-    # 先构造句子之间的无向权图, 整体为N*N的矩阵
+    # 初始化句子之间的无向权图, 整体为N*N的矩阵
     graph = np.zeros((len_sentences, len_sentences))
 
     # 计算权重, 权重由切词的相似度进行计算, 由于是无向的, a(ij) = a(ji)
@@ -82,4 +101,35 @@ def get_key_sentences(sentences, words, sim_func=get_similarity):
             graph[i, j] = sim_value
             graph[j, i] = sim_value
 
-    return 1
+    # 构造无向权图
+    nx_graph = nx.from_numpy_matrix(graph)
+
+    # 计算PR值, 注意, 初始参数在计算PR值时可能不收敛, 这个时候可以
+    flag = True
+
+    while flag:
+        # noinspection PyBroadException
+        try:
+            ## 开始计算PR值, 可能存在不收敛的情况
+            pr_values = nx.pagerank(nx_graph, **pagerank_config)
+            ## 成功收敛则停止循环
+            flag = False
+
+        except Exception:
+            ## 如果PR不收敛, 以提升迭代前后轮次之间的差值为策略
+            if pr_error_handle == 'tolerance':
+                pr_tol = min(pr_tol * 10, 0)
+            ## 否则以提升迭代轮次作为策略
+            else:
+                pr_max_iter += 50
+
+            pagerank_config = {'alpha': pr_alpha,
+                               'max_iter': pr_max_iter,
+                               'tol': pr_tol}
+
+    # pr_values: 一个dict, {index:pr, index:pr}
+    for idx, val in sorted(pr_values.items(), lambda x: x[1], reverse=True):
+        list_res.append({'sentence': sentences[idx], 'weight': val})
+
+    return list_res
+

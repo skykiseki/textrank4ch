@@ -128,9 +128,38 @@ class TextRank4Sentence(object):
             ## all_filters作为兜底
             _words = self.words_all_filters
 
-        self.key_sentences = utils.get_key_sentences(sentences=self.sentences,
-                                                     words=_words,
-                                                     sim_func=sim_func)
+        self.key_sentences = utils.sort_sentences(sentences=self.sentences,
+                                                  words=_words,
+                                                  sim_func=sim_func)
+
+    def get_key_sentences(self, top_k=5, sentences_min_len=5, with_weight=True):
+        """
+        筛选需要的topK摘要句
+
+        Parameters:
+        ----------
+        top_k: int, 获取topN权重的句子
+
+        sentences_min_len: int, 获取大于等于长度阈值的句子
+
+        with_weight: bool, 是否要带着权重(PR值)进行输出
+
+        Returns:
+        -------
+        摘要句列表
+
+        """
+        list_res = []
+
+        sentences = [item.sentence for item in self.key_sentences if len(item.sentence) >= sentences_min_len]
+        weights = [item.weight for item in self.key_sentences if len(item.sentence) >= sentences_min_len]
+
+        list_res.append(sentences)
+
+        if with_weight:
+            list_res.append(weights)
+
+        return list(zip(*list_res))[:top_k]
 
 
 

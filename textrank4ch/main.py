@@ -1,6 +1,7 @@
 from segment import WordSegment, SentenceSegment
 import os
 import re
+import networkx as nx
 import utils
 import math
 
@@ -39,9 +40,8 @@ if __name__ == '__main__':
     word_seg = WordSegment(path_stop_words=path_stop_words)
     ss = " 近日，   云南省德宏州瑞丽市出现本土新冠肺炎疫情，瑞丽市疫情防控工作指挥部已经发布通告，从7月5日8时起，所有人员非必要不进出瑞丽；；！；!；自7月6日12时起，将瑞丽市姐告国门社区调整为中风险地区，其他区域为低风险地区。鉴于云南省德宏州疫情变化形势，为严格落实“外防输入、内防反弹”的防控策略，有效控制和降低疫情传播风险，市疾控中心向广大市民发出紧急提醒"
 
-    a = ['c','a', 'a']
-    b = ['d', 'c', 'a', 'a', 'a']
-    print(get_similarity([], b))
-
-    print(utils.get_similarity([], b))
+    G = nx.DiGraph(nx.path_graph(4))
+    pr = nx.pagerank(G, alpha=0.9)
+    print(pr)
+    print(sorted(pr.items(), key = lambda item: item[1], reverse=True))
 
