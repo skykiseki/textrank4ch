@@ -28,3 +28,6 @@ def get_stop_words(path_stop_words):
             stop_words = set([word.strip().replace('\n', '') for word in fr.readlines()])
 
     return stop_words
+
+def get_key_sentences(sentences, words):
+    return 1

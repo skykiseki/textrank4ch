@@ -11,14 +11,16 @@ class TextRank4Keywords(object):
     Attributes:
     ----------
     path_stop_words: str, 停用词表路径
+
     text: str, 文本字符串
-    is_lower: bool, 是否要转小写字母
-    keywords: 关键字列表, 一个元素包含关键词(必选), 词性(可选), 权重(可选)
+
+    keywords: list, 关键字列表, 一个元素包含关键词(必选), 词性(可选), 权重(可选)
+
+    allow_pos: list, 切词时保留的词性
     """
     def __init__(self):
         self.path_stop_words = None
         self.text = None
-        self.is_lower = None
         self.keywords = None
         self.allow_pos = None
 
@@ -29,7 +31,9 @@ class TextRank4Keywords(object):
         Parameters:
         ----------
         text: str, 文本字符串
+
         path_stop_words: str, 停用词表路径
+
         is_lower: bool, 是否要转小写字母
 
         Returns:
@@ -39,10 +43,9 @@ class TextRank4Keywords(object):
         """
         self.path_stop_words = path_stop_words
         self.text = text.replace(" ", "")
-        self.is_lower = is_lower
         self.allow_pos = allow_pos
 
-        if self.is_lower:
+        if is_lower:
             self.text = self.text.lower()
 
         if path_stop_words:
@@ -61,8 +64,11 @@ class TextRank4Keywords(object):
         Parameters:
         ----------
         top_k: int, 获取topN权重的词
+
         word_min_len: int, 获取大于等于长度阈值的关键词
+
         with_weight: bool, 是否要带着权重(PR值)进行输出
+
         with_flag: bool, 是否要带着词性进行输出
 
         Returns:

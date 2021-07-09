@@ -8,9 +8,11 @@ class WordSegment(object):
 
     Attributes:
     ----------
-    stop_words: 停用词列表
-    allow_pos: 选用的词性列表
-    punct: 剔除的特殊字符列表
+    stop_words: list, 停用词列表
+
+    allow_pos: list, 选用的词性列表
+
+    punct: list, 剔除的特殊字符列表
     """
 
     def __init__(self, path_stop_words=None, allow_pos=None, punct=utils.word_delimiters):
@@ -96,7 +98,9 @@ class SentenceSegment(object):
         Parameters:
         ----------
         content: str, 输入的语料, 字符串长串
+
         delemeters: list, 切割用的字符串
+
         use_is_lower: bool, 是否要转化为小写
 
         Returns:
