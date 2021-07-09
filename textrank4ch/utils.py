@@ -75,7 +75,7 @@ def sort_sentences(sentences, words,
 
     Returns:
     -------
-    list_res: list, [{'sentence': sentence, 'weight': pagerank}]
+    list_res: list, 结果列表
     """
     list_res = []
 
@@ -128,7 +128,7 @@ def sort_sentences(sentences, words,
                                'tol': pr_tol}
 
     # pr_values: 一个dict, {index:pr, index:pr}
-    for idx, val in sorted(pr_values.items(), lambda x: x[1], reverse=True):
+    for idx, val in sorted(pr_values.items(), key=lambda x: x[1], reverse=True):
         list_res.append({'sentence': sentences[idx], 'weight': val})
 
     return list_res

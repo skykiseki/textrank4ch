@@ -151,8 +151,8 @@ class TextRank4Sentence(object):
         """
         list_res = []
 
-        sentences = [item.sentence for item in self.key_sentences if len(item.sentence) >= sentences_min_len]
-        weights = [item.weight for item in self.key_sentences if len(item.sentence) >= sentences_min_len]
+        sentences = [item['sentence'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
+        weights = [item['weight'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
 
         list_res.append(sentences)
 
