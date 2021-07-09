@@ -38,12 +38,12 @@ class TextRank4Keywords(object):
 
         """
         self.path_stop_words = path_stop_words
-        self.text = text
+        self.text = text.replace(" ", "")
         self.is_lower = is_lower
         self.allow_pos = allow_pos
 
         if self.is_lower:
-            self.text = self.text.strip().replace(" ", "").lower()
+            self.text = self.text.lower()
 
         if path_stop_words:
             jieba.analyse.set_stop_words(stop_words_path=path_stop_words)

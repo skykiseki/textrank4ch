@@ -1,5 +1,6 @@
 import jieba
 import utils
+from segment import WordSegment
 
 class TextRank4Sentence(object):
     """
@@ -16,6 +17,7 @@ class TextRank4Sentence(object):
         self.is_lower = None
         self.source = None
         self.delimiters  = None
+        self.seg = None
 
     def analyze(self, sentences,
                 delimiters=utils.sentence_delimiters,
@@ -34,6 +36,7 @@ class TextRank4Sentence(object):
 
 
         """
+
         self.sentences = sentences
         self.delimiters = delimiters
         self.source = source
@@ -42,7 +45,7 @@ class TextRank4Sentence(object):
         self.is_lower = is_lower
 
         # 切分句子
-        
+
 
 
 

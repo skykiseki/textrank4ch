@@ -1,5 +1,6 @@
 import jieba.posseg as pseg
 import utils
+import re
 
 class WordSegment(object):
     """
@@ -12,7 +13,7 @@ class WordSegment(object):
     punct: 剔除的特殊字符列表
     """
 
-    def __init__(self, path_stop_words=None, allow_pos=None, punct=utils.word_delimiters, is_lower=True):
+    def __init__(self, path_stop_words=None, allow_pos=None, punct=utils.word_delimiters):
         self.stop_words = utils.get_stop_words(path_stop_words=path_stop_words)
         self.allow_pos = allow_pos
         self.punct = punct
@@ -70,4 +71,51 @@ class WordSegment(object):
                                    use_is_lower=use_is_lower) for sent in sentences]
 
         return list_sents
+
+class SentenceSegment(object):
+    """
+    切句的类
+    这里的切句是指根据特殊符号将多个句子进行拆分, 不是将句子拆成词
+    e.g.
+    AAAA。BBBB。 -> [AAAA, BBBB]
+
+    Attributes:
+    ----------
+    delimeters: list, 切句使用的特殊字符列表
+    """
+    def __init__(self, delimiters=utils.sentence_delimiters):
+        self.delimeters = delimiters
+
+    def segment(self, content, use_is_lower=True):
+        """
+        根据特殊符号将多个句子进行拆分
+
+        e.g.
+        AAAA。BBBB。 -> [AAAA, BBBB]
+
+        Parameters:
+        ----------
+        content: str, 输入的语料, 字符串长串
+        delemeters: list, 切割用的字符串
+        use_is_lower: bool, 是否要转化为小写
+
+        Returns:
+        -------
+        """
+        # 先剔除空格符
+        content = content.replace(" ", "")
+
+        # 转化大小写
+        if use_is_lower:
+            content = content.lower()
+
+        # 基于分隔符进行split
+        pattern = '[{0}*]'.format('|'.join(self.delimeters))
+        ## 注意可能存在AAAA;;;;!BBBB这种连续特殊字符的场景, split后会生成空字符串需要剔除
+        res_split = [s for s in re.split(pattern, content) if len(s) > 0]
+
+        return res_split
+
+
+
 
