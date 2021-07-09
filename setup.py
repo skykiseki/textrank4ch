@@ -49,7 +49,8 @@ setup(name='textrank4ch',
       install_requires=[
         'pandas',
         'numpy',
-        'jieba'
+        'jieba',
+        'networkx'
       ],
       keywords='NLP,Chinese,Chinese words,textrank',
       packages=['textrank4ch'],

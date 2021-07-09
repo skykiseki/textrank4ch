@@ -1,4 +1,3 @@
-import jieba
 import utils
 from segment import WordSegment, SentenceSegment
 
@@ -52,6 +51,7 @@ class TextRank4Sentence(object):
                 punct=utils.word_delimiters,
                 delimiters=utils.sentence_delimiters,
                 source='all_filters',
+                sim_func=utils.get_similarity,
                 path_stop_words=None,
                 allow_pos=utils.allow_pos,
                 is_lower=True):
@@ -68,6 +68,8 @@ class TextRank4Sentence(object):
         delimiters: list, 切句使用的特殊字符列表
 
         source: str, 最后用于提取摘要句计算PR时用的分词结果
+
+        sim_func: function, 用于计算两个词列表的相似度函数, 支持用户自定义该函数, 格式为 func(list, list) -> float
 
         path_stop_words: str, 停用词表路径
 
@@ -127,7 +129,8 @@ class TextRank4Sentence(object):
             _words = self.words_all_filters
 
         self.key_sentences = utils.get_key_sentences(sentences=self.sentences,
-                                                     words=_words)
+                                                     words=_words,
+                                                     sim_func=sim_func)
 
 
 
