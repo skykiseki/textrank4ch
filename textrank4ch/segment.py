@@ -101,6 +101,7 @@ class SentenceSegment(object):
 
         Returns:
         -------
+        res_split: list, 切分后的句子列表
         """
         # 先剔除空格符
         content = content.replace(" ", "")
