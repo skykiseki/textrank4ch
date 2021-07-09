@@ -1,9 +1,9 @@
 textrank4ch
 ===========
 
-    参考以下内容进行学习和开发
-    1.[TextRank4ZH](https://github.com/someus/TextRank4ZH)
-    2.[TextRank Bringing Order into Texts](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf)
+参考以下内容进行学习和开发
+- 1.[TextRank4ZH](https://github.com/someus/TextRank4ZH)
+- 2.[TextRank Bringing Order into Texts](http://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf)
 
 
 
