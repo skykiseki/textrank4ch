@@ -1,9 +1,5 @@
 from TextRank4Sentence import TextRank4Sentence
 import os
-import re
-import utils
-
-
 
 if __name__ == '__main__':
     work_path = os.getcwd()
