@@ -23,7 +23,7 @@ GitHub: https://github.com/skykiseki/textrank4ch
 """
 
 setup(name='textrank4ch',
-      version='1.1.0',
+      version='1.1.1',
       description='Key words extracting and Key sentences extracting',
       long_description=LONGDOC,
       long_description_content_type="text/markdown",

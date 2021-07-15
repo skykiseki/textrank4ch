@@ -1,6 +1,6 @@
 import jieba.analyse
 import jieba
-import utils
+from . import utils
 
 class TextRank4Keywords(object):
     """
