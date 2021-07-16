@@ -1,5 +1,5 @@
 from . import utils
-from segment import WordSegment, SentenceSegment
+from .segment import WordSegment, SentenceSegment
 
 class TextRank4Sentence(object):
     """
