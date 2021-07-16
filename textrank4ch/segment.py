@@ -1,6 +1,6 @@
 import jieba.posseg as pseg
-import utils
 import re
+from . import utils
 
 class WordSegment(object):
     """

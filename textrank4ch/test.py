@@ -1,6 +1,7 @@
-from TextRank4Sentence import TextRank4Sentence
-from segment import WordSegment
+from .TextRank4Sentence import TextRank4Sentence
+from .segment import WordSegment
 import os
+
 
 if __name__ == '__main__':
     work_path = os.getcwd()
