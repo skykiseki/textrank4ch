@@ -1,6 +1,8 @@
-from TextRank4Sentence import TextRank4Sentence
-from segment import WordSegment
 import os
+import sys
+
+from .TextRank4Sentence import TextRank4Sentence
+from .segment import WordSegment
 
 
 if __name__ == '__main__':
