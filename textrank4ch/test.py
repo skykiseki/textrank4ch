@@ -1,5 +1,5 @@
-from .TextRank4Sentence import TextRank4Sentence
-from .segment import WordSegment
+from TextRank4Sentence import TextRank4Sentence
+from segment import WordSegment
 import os
 
 
