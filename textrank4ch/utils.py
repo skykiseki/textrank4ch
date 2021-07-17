@@ -59,7 +59,7 @@ def get_similarity(words1, words2):
 def sort_sentences(sentences, words,
                    sim_func=get_similarity,
                    pagerank_config=None,
-                   pr_error_handle='iterator'):
+                   pr_error_handle='both'):
     f"""
     基于TextRank方法对句子以及分词结果进行提取摘要
 
@@ -71,7 +71,10 @@ def sort_sentences(sentences, words,
 
     pagerank_config: dict, networkx.pagerank的参数字典
 
-    pr_error_handle: str, pagerank不收敛的时候的处理策略, iterator增加迭代轮次（兜底）, tolerance增加迭代轮次前后的差值阈值
+    pr_error_handle: str, pagerank不收敛的时候的处理策略,
+    iterator:增加迭代轮次（兜底）, 
+    tolerance:增加迭代轮次前后的差值阈值
+    both:增加迭代轮次的同时增加迭代轮次前后的差值阈值
 
     Returns:
     -------
@@ -118,10 +121,14 @@ def sort_sentences(sentences, words,
         except Exception:
             ## 如果PR不收敛, 以提升迭代前后轮次之间的差值为策略
             if pr_error_handle == 'tolerance':
-                pr_tol = min(pr_tol * 10, 0)
-            ## 否则以提升迭代轮次作为策略
+                pr_tol *= 10
+            ## 以提升迭代轮次作为策略
+            elif pr_error_handle == 'iterator':
+                pr_max_iter *= 2
+            ## 两者同时进行
             else:
-                pr_max_iter += 50
+                pr_tol *= 10
+                pr_max_iter *= 2
 
             pagerank_config = {'alpha': pr_alpha,
                                'max_iter': pr_max_iter,

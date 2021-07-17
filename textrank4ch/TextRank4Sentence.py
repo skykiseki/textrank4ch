@@ -54,6 +54,7 @@ class TextRank4Sentence(object):
                 sim_func=utils.get_similarity,
                 path_stop_words=None,
                 allow_pos=utils.allow_pos,
+                pr_error_handle='both',
                 is_lower=True):
         """
         基于TextRank提取全量的句子以及其权重(PR值)
@@ -74,6 +75,8 @@ class TextRank4Sentence(object):
         path_stop_words: str, 停用词表路径
 
         allow_pos: list, 切词时保留的词性
+
+        pr_error_handle: str, pr值不收敛的时候的策略
 
         is_lower: bool, 是否要转小写字母
 
@@ -130,7 +133,8 @@ class TextRank4Sentence(object):
 
         self.key_sentences = utils.sort_sentences(sentences=self.sentences,
                                                   words=_words,
-                                                  sim_func=sim_func)
+                                                  sim_func=sim_func,
+                                                  pr_error_handle=pr_error_handle)
 
     def get_key_sentences(self, top_k=5, sentences_min_len=5, with_weight=True):
         """

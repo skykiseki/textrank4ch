@@ -1,4 +1,4 @@
 from __future__ import absolute_import
 
 
-version = '1.1.2'
+version = '1.2.0'
