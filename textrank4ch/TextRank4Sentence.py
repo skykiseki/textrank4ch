@@ -54,6 +54,7 @@ class TextRank4Sentence(object):
                 sim_func=utils.get_similarity,
                 path_stop_words=None,
                 allow_pos=utils.allow_pos,
+                pagerank_config=None,
                 pr_error_handle='both',
                 is_lower=True):
         """
@@ -75,6 +76,8 @@ class TextRank4Sentence(object):
         path_stop_words: str, 停用词表路径
 
         allow_pos: list, 切词时保留的词性
+
+        pagerank_config: dict, pagerank收敛参数
 
         pr_error_handle: str, pr值不收敛的时候的策略
 
@@ -134,6 +137,7 @@ class TextRank4Sentence(object):
         self.key_sentences = utils.sort_sentences(sentences=self.sentences,
                                                   words=_words,
                                                   sim_func=sim_func,
+                                                  pagerank_config=pagerank_config,
                                                   pr_error_handle=pr_error_handle)
 
     def get_key_sentences(self, top_k=5, sentences_min_len=5, with_weight=True):
