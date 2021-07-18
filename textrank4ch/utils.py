@@ -48,7 +48,8 @@ def get_similarity(words1, words2):
     sim_value: float, 句子之间的相似度
     """
 
-    if len(words1) == 0 or len(words2) == 0:
+    # 注意, 这里假设认为整个句式只有一个词的时候是无法对比相似度的
+    if len(words1) <= 1 or len(words2) <= 1:
         sim_value = 0
     else:
         sim_value = float(len(set(words1).intersection(set(words2))) / (np.log(len(words1)) + np.log(len(words2))))
@@ -124,11 +125,11 @@ def sort_sentences(sentences, words,
                 pr_tol *= 10
             ## 以提升迭代轮次作为策略
             elif pr_error_handle == 'iterator':
-                pr_max_iter *= 2
+                pr_max_iter += 100
             ## 两者同时进行
             else:
                 pr_tol *= 10
-                pr_max_iter *= 2
+                pr_max_iter += 100
 
             pagerank_config = {'alpha': pr_alpha,
                                'max_iter': pr_max_iter,
