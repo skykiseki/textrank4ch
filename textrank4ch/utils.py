@@ -10,7 +10,7 @@ word_delimiters = ['!', '"', '#', '%', '&', '(', ')', '*', '+',
 
 sentence_delimiters = ['？', '?', '；', ';', '！', '!', '。', '……', '…', '\n']
 
-allow_pos = ['an', 'nz', 'vn', 'v', 'vd', 'x', 'n', 'nt', 'nz', 'd']
+allow_pos = ['an', 'nz', 'vn', 'v', 'vd', 'x', 'n', 'nt', 'd']
 
 def get_stop_words(path_stop_words):
     """
@@ -137,7 +137,9 @@ def sort_sentences(sentences, words,
 
     # pr_values: 一个dict, {index:pr, index:pr}
     for idx, val in sorted(pr_values.items(), key=lambda x: x[1], reverse=True):
-        list_res.append({'sentence': sentences[idx], 'weight': val})
+        list_res.append({'sentence': sentences[idx],
+                         'weight': val,
+                         'index':idx})
 
     return list_res
 

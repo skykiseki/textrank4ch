@@ -1,3 +1,4 @@
+import re
 from . import utils
 from .segment import WordSegment, SentenceSegment
 
@@ -88,6 +89,9 @@ class TextRank4Sentence(object):
 
 
         """
+        # 先剔除空格
+        text = re.sub('\s', '', text)
+
         self.punct = punct
         self.delimiters = delimiters
         self.allow_pos = allow_pos
@@ -140,7 +144,7 @@ class TextRank4Sentence(object):
                                                   pagerank_config=pagerank_config,
                                                   pr_error_handle=pr_error_handle)
 
-    def get_key_sentences(self, top_k=5, sentences_min_len=5, with_weight=True):
+    def get_key_sentences(self, top_k=5, sentences_min_len=5, with_weight=True, with_index=False):
         """
         筛选需要的topK摘要句
 
@@ -152,6 +156,8 @@ class TextRank4Sentence(object):
 
         with_weight: bool, 是否要带着权重(PR值)进行输出
 
+        with_index: bool, 是否要带着文本index
+
         Returns:
         -------
         摘要句列表
@@ -160,11 +166,14 @@ class TextRank4Sentence(object):
         list_res = []
 
         sentences = [item['sentence'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
-        weights = [item['weight'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
-
         list_res.append(sentences)
 
+        if with_index:
+            idxs = [item['index'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
+            list_res.append(idxs)
+
         if with_weight:
+            weights = [item['weight'] for item in self.key_sentences if len(item['sentence']) >= sentences_min_len]
             list_res.append(weights)
 
         return list(zip(*list_res))[:top_k]
