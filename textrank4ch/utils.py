@@ -106,7 +106,7 @@ def sort_sentences(sentences, words,
             graph[j, i] = sim_value
 
     # 构造无向权图
-    nx_graph = nx.from_numpy_matrix(graph)
+    nx_graph = nx.from_numpy_array(graph)
 
     # 计算PR值, 注意, 初始参数在计算PR值时可能不收敛, 这个时候可以
     flag = True
